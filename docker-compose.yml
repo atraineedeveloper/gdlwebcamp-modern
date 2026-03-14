@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: gdlwebcamp-modern-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gdlwebcamp
+      POSTGRES_USER: gdl_user
+      POSTGRES_PASSWORD: gdl_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

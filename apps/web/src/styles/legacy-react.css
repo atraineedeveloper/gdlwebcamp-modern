@@ -1,0 +1,91 @@
+/* Ajustes mínimos para mantener apariencia legacy con layout moderno */
+body {
+  background-color: #f2f2f2;
+}
+
+main {
+  min-height: 40vh;
+}
+
+.programa-grid {
+  display: grid;
+  gap: 14px;
+}
+
+@media only screen and (min-width: 768px) {
+  .programa-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .programa-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.lista-invitados-react {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media only screen and (min-width: 480px) {
+  .lista-invitados-react {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .lista-invitados-react {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.calendario-grid-react {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media only screen and (min-width: 768px) {
+  .calendario-grid-react {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.contenido-dia {
+  display: block !important;
+}
+
+.contenido-dia-react {
+  display: grid;
+  gap: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .contenido-dia-react {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.site-footer {
+  background-color: #353535;
+  margin-top: 20px;
+}
+
+.site-footer .contenedor {
+  display: grid;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .site-footer .contenedor {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
