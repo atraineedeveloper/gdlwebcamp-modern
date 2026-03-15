@@ -1,12 +1,26 @@
 import { useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Alert, Button, Card, Form, Input, Select, Space, Table, Tabs, Typography } from 'antd';
-import { api, apiAuth, tokenStore } from '../lib/api';
+import { api, apiAuth, DEMO_MODE, tokenStore } from '../lib/api';
 
 const ENTITIES = ['invitados', 'categorias', 'eventos', 'registrados'] as const;
 type Entity = (typeof ENTITIES)[number];
 
 export function AdminPage() {
+  if (DEMO_MODE) {
+    return (
+      <section className="section">
+        <Typography.Title level={2}>Admin</Typography.Title>
+        <Alert
+          type="info"
+          message="El panel admin no esta disponible en el demo de GitHub Pages."
+          description="Para probar el backend y el CRUD completo hay que ejecutar el proyecto en local o desplegar la API por separado."
+          showIcon
+        />
+      </section>
+    );
+  }
+
   const [entity, setEntity] = useState<Entity>('invitados');
   const [jsonPayload, setJsonPayload] = useState('{}');
   const [error, setError] = useState('');
