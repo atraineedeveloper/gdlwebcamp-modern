@@ -3,7 +3,7 @@ import { api } from '../lib/api';
 import type { Invitado } from '../types';
 
 function getInvitadoImage(name: string) {
-  return `/legacy/img/invitados/${name}`;
+  return `${import.meta.env.BASE_URL}legacy/img/invitados/${name}`;
 }
 
 export function InvitadosPage() {

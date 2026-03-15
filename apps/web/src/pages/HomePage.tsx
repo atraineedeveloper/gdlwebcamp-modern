@@ -14,7 +14,7 @@ function byCategory(eventos: Evento[], cat: string) {
 }
 
 function getInvitadoImage(name: string) {
-  return `/legacy/img/invitados/${name}`;
+  return `${import.meta.env.BASE_URL}legacy/img/invitados/${name}`;
 }
 
 const testimonials = [
@@ -71,8 +71,8 @@ export function HomePage() {
 
       <section className="programa">
           <div className="contenedor-video">
-            <video autoPlay loop muted poster="/legacy/img/bg-talleres.jpg">
-              <source src="/legacy/video/video.mp4" type="video/mp4" />
+            <video autoPlay loop muted poster={`${import.meta.env.BASE_URL}legacy/img/bg-talleres.jpg`}>
+              <source src={`${import.meta.env.BASE_URL}legacy/video/video.mp4`} type="video/mp4" />
             </video>
           </div>
 
@@ -279,7 +279,7 @@ export function HomePage() {
               <blockquote>
                 <p>{item.quote}</p>
                 <footer className="info-testimonial">
-                  <img src="/legacy/img/testimonial.jpg" alt={item.name} />
+                  <img src={`${import.meta.env.BASE_URL}legacy/img/testimonial.jpg`} alt={item.name} />
                   <cite>
                     {item.name}
                     <span>{item.role}</span>

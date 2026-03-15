@@ -17,12 +17,12 @@ export function ConferenciaPage() {
           {photos.map((id) => (
             <a
               key={id}
-              href={`/legacy/img/galeria/${id}.jpg`}
+              href={`${import.meta.env.BASE_URL}legacy/img/galeria/${id}.jpg`}
               data-lightbox="galeria"
               target="_blank"
               rel="noreferrer"
             >
-              <img src={`/legacy/img/galeria/thumbs/${id}.jpg`} alt={`Galeria ${id}`} />
+              <img src={`${import.meta.env.BASE_URL}legacy/img/galeria/thumbs/${id}.jpg`} alt={`Galeria ${id}`} />
             </a>
           ))}
         </div>

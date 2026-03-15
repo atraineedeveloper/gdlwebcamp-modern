@@ -68,7 +68,7 @@ export function LegacyLayout() {
         <div className="contenedor clearfix">
           <div className="logo">
             <NavLink to="/">
-              <img src="/legacy/img/logo.svg" alt="GDL WebCamp" />
+              <img src={`${import.meta.env.BASE_URL}legacy/img/logo.svg`} alt="GDL WebCamp" />
             </NavLink>
           </div>
 
