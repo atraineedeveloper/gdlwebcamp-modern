@@ -15,6 +15,11 @@ export class PublicController {
     return this.service.invitados();
   }
 
+  @Get('categorias')
+  categorias() {
+    return this.service.categorias();
+  }
+
   @Get('eventos')
   eventos() {
     return this.service.eventos();

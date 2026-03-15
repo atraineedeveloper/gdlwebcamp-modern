@@ -24,6 +24,13 @@ export class PublicService {
     return result.rows;
   }
 
+  async categorias() {
+    const result = await this.db.query(
+      'SELECT id_categoria, cat_evento, icono FROM categoria_evento ORDER BY id_categoria ASC'
+    );
+    return result.rows;
+  }
+
   async eventos() {
     const result = await this.db.query(
       `SELECT e.*, c.cat_evento, i.nombre_invitado, i.apellido_invitado

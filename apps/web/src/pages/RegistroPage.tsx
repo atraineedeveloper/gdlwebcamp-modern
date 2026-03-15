@@ -44,6 +44,8 @@ export function RegistroPage() {
     return totals.unDia * 30 + totals.dosDias * 45 + totals.completo * 50 + totals.camisas * 10 * 0.93 + totals.etiquetas * 2;
   }, [totals]);
 
+  const totalBoletos = totals.unDia + totals.dosDias + totals.completo;
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -77,10 +79,27 @@ export function RegistroPage() {
   }
 
   return (
-    <section className="seccion contenedor">
+    <section className="seccion contenedor registro-page">
       <h2>Registro de Usuarios</h2>
-      <form id="registro" className="registro" onSubmit={onSubmit}>
-        <div id="datos_usuario" className="registro caja clearfix">
+      <p className="registro-intro">
+        Completa tus datos, elige tus accesos y arma tu agenda personal para el evento.
+      </p>
+      <div className="registro-highlights" aria-label="Resumen de seleccion">
+        <article className="registro-highlight">
+          <span className="registro-highlight-label">Boletos</span>
+          <strong>{totalBoletos}</strong>
+        </article>
+        <article className="registro-highlight">
+          <span className="registro-highlight-label">Sesiones</span>
+          <strong>{seleccionados.length}</strong>
+        </article>
+        <article className="registro-highlight">
+          <span className="registro-highlight-label">Total actual</span>
+          <strong>$ {total.toFixed(2)}</strong>
+        </article>
+      </div>
+      <form id="registro" className="registro registro-form" onSubmit={onSubmit}>
+        <div id="datos_usuario" className="registro caja clearfix registro-user-grid">
           <div className="campo">
             <label htmlFor="nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre" placeholder="Tu Nombre" required />
@@ -95,27 +114,66 @@ export function RegistroPage() {
           </div>
         </div>
 
-        <div id="paquetes" className="paquetes">
+        <div id="paquetes" className="paquetes registro-section">
           <h3>Elije el numero de Boletos</h3>
-          <ul className="lista-precios clearfix">
-            <li><div className="tabla-precio"><h3>pase por dia (viernes)</h3><p className="numero">$30</p><div className="orden"><label>Boletos deseados:</label><input type="number" min="0" value={totals.unDia} onChange={(e) => setTotals((t) => ({ ...t, unDia: Number(e.target.value) }))} /></div></div></li>
-            <li><div className="tabla-precio"><h3>Todos los dias</h3><p className="numero">$50</p><div className="orden"><label>Boletos deseados:</label><input type="number" min="0" value={totals.completo} onChange={(e) => setTotals((t) => ({ ...t, completo: Number(e.target.value) }))} /></div></div></li>
-            <li><div className="tabla-precio"><h3>Pase por 2 dias</h3><p className="numero">$45</p><div className="orden"><label>Boletos deseados:</label><input type="number" min="0" value={totals.dosDias} onChange={(e) => setTotals((t) => ({ ...t, dosDias: Number(e.target.value) }))} /></div></div></li>
+          <p className="registro-section-copy">
+            Selecciona el tipo de acceso que mejor se ajuste a tu visita.
+          </p>
+          <ul className="lista-precios clearfix registro-pricing-grid">
+            <li>
+              <div className={`tabla-precio registro-ticket-card ${totals.unDia > 0 ? 'is-active' : ''}`}>
+                <h3>pase por dia (viernes)</h3>
+                <p className="numero">$30</p>
+                <p className="registro-ticket-copy">Ideal para una visita puntual con acceso a la agenda del dia.</p>
+                <div className="orden">
+                  <label>Boletos deseados:</label>
+                  <input type="number" min="0" value={totals.unDia} onChange={(e) => setTotals((t) => ({ ...t, unDia: Number(e.target.value) }))} />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className={`tabla-precio registro-ticket-card ${totals.completo > 0 ? 'is-active featured' : 'featured'}`}>
+                <h3>Todos los dias</h3>
+                <p className="numero">$50</p>
+                <p className="registro-ticket-copy">La opcion mas completa para vivir talleres, charlas y seminarios.</p>
+                <div className="orden">
+                  <label>Boletos deseados:</label>
+                  <input type="number" min="0" value={totals.completo} onChange={(e) => setTotals((t) => ({ ...t, completo: Number(e.target.value) }))} />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className={`tabla-precio registro-ticket-card ${totals.dosDias > 0 ? 'is-active' : ''}`}>
+                <h3>Pase por 2 dias</h3>
+                <p className="numero">$45</p>
+                <p className="registro-ticket-copy">Equilibrio perfecto para cubrir lo esencial del evento.</p>
+                <div className="orden">
+                  <label>Boletos deseados:</label>
+                  <input type="number" min="0" value={totals.dosDias} onChange={(e) => setTotals((t) => ({ ...t, dosDias: Number(e.target.value) }))} />
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
 
-        <div id="eventos" className="eventos clearfix">
+        <div id="eventos" className="eventos clearfix registro-section">
           <h3>Elige tus talleres</h3>
-          <div className="caja">
+          <p className="registro-section-copy">
+            Marca las sesiones que quieres apartar. Puedes combinar categorias por dia.
+          </p>
+          <div className="caja registro-event-picker">
             {Object.entries(grouped).map(([dia, categories]) => (
-              <div className="contenido-dia clearfix" key={dia}>
+              <section className="contenido-dia clearfix registro-day" key={dia}>
                 <h4>{dia}</h4>
-                <div className="contenido-dia-react">
+                <div className="contenido-dia-react registro-day-grid">
                   {Object.entries(categories).map(([tipo, evs]) => (
-                    <div key={tipo}>
-                      <p>{tipo}:</p>
+                    <div className="registro-category" key={tipo}>
+                      <p className="registro-category-title">{tipo}:</p>
                       {evs.map((evento) => (
-                        <label key={evento.evento_id}>
+                        <label
+                          className={`registro-event-option ${seleccionados.includes(evento.evento_id) ? 'is-selected' : ''}`}
+                          key={evento.evento_id}
+                        >
                           <input
                             type="checkbox"
                             checked={seleccionados.includes(evento.evento_id)}
@@ -125,23 +183,30 @@ export function RegistroPage() {
                               );
                             }}
                           />
-                          <time>{evento.hora_evento}</time> {evento.nombre_evento}
-                          <br />
-                          <span className="autor">{evento.nombre_invitado} {evento.apellido_invitado}</span>
+                          <span className="registro-event-copy">
+                            <span className="registro-event-headline">
+                              <time>{evento.hora_evento}</time>
+                              <span>{evento.nombre_evento}</span>
+                            </span>
+                            <span className="autor">{evento.nombre_invitado} {evento.apellido_invitado}</span>
+                          </span>
                         </label>
                       ))}
                     </div>
                   ))}
                 </div>
-              </div>
+              </section>
             ))}
           </div>
         </div>
 
-        <div className="resumen">
+        <div className="resumen registro-section">
           <h3>Pago y Extras</h3>
-          <div className="caja clearfix">
-            <div className="extras">
+          <p className="registro-section-copy">
+            Agrega complementos y revisa tu total antes de completar el registro.
+          </p>
+          <div className="caja clearfix registro-summary-grid">
+            <div className="extras registro-extras">
               <div className="orden">
                 <label>Camisa del evento $10</label>
                 <input type="number" min="0" value={totals.camisas} onChange={(e) => setTotals((t) => ({ ...t, camisas: Number(e.target.value) }))} />
@@ -159,11 +224,11 @@ export function RegistroPage() {
                 </select>
               </div>
             </div>
-            <div className="total">
-              <p>Total:</p>
+            <div className="total registro-total">
+              <p className="registro-total-label">Total:</p>
               <div id="suma_total">$ {total.toFixed(2)}</div>
               <input type="submit" className="button" value="Completar Registro" />
-              {result && <p>{result}</p>}
+              {result && <p className="registro-result">{result}</p>}
             </div>
           </div>
         </div>

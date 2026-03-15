@@ -16,6 +16,7 @@ export function LegacyLayout() {
 
   useEffect(() => {
     document.body.className = bodyClass;
+    setMenuOpen(false);
     return () => {
       document.body.className = '';
     };
@@ -53,11 +54,11 @@ export function LegacyLayout() {
             </nav>
             <div className="informacion-evento">
               <div className="clearfix">
-                <p className="fecha"><i className="far fa-calendar-alt"></i>10-12-dic</p>
-                <p className="ciudad"><i className="fas fa-map-marker-alt"></i> Colombia</p>
+                <p className="fecha"><i className="far fa-calendar-alt"></i>10-12 DIC</p>
+                <p className="ciudadd"><i className="fas fa-map-marker-alt"></i>Guadalajara, MX</p>
               </div>
               <h1 className="nombre-sitio">Gdlwebcamp</h1>
-              <p className="slogan">la mejor coferencia de <span>Diseño web</span></p>
+              <p className="slogan">La mejor conferencia de <span>diseno web</span></p>
             </div>
           </div>
         </div>
@@ -77,7 +78,7 @@ export function LegacyLayout() {
             <span></span>
           </div>
 
-          <nav className="navegacion-principal clearfix" style={menuOpen ? { display: 'block' } : undefined}>
+          <nav className={`navegacion-principal clearfix ${menuOpen ? 'is-open' : ''}`}>
             <NavLink to="/conferencia" className={({ isActive }) => (isActive ? 'activo' : '')}>Conferencia</NavLink>
             <NavLink to="/calendario" className={({ isActive }) => (isActive ? 'activo' : '')}>Calendario</NavLink>
             <NavLink to="/invitados" className={({ isActive }) => (isActive ? 'activo' : '')}>Invitados</NavLink>

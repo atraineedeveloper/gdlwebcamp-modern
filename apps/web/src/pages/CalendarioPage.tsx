@@ -27,34 +27,34 @@ export function CalendarioPage() {
   }, [data]);
 
   return (
-    <section className="seccion contenedor">
+    <section className="seccion contenedor calendario-modern-page">
       <h2>calendario de eventos</h2>
-      <div className="calendario">
+      <p className="calendario-page-intro">
+        Explora la agenda completa por dia y encuentra rapidamente talleres, conferencias y seminarios.
+      </p>
+      <div className="calendario calendario-modern">
         {Object.entries(grouped).map(([dia, eventos]) => (
-          <div key={dia}>
-            <h3>
+          <section className="calendario-day-section" key={dia}>
+            <h3 className="calendario-day-title">
               <i className="fa fa-calendar"></i> {toSpanishDate(dia)}
             </h3>
-            <div className="calendario-grid-react">
+            <div className="calendario-grid-react calendario-modern-grid">
               {eventos.map((evento) => (
-                <div className="dia" key={evento.evento_id}>
+                <article className={`dia calendario-card categoria-${evento.cat_evento}`} key={evento.evento_id}>
+                  <p className="calendario-badge">{evento.cat_evento}</p>
                   <p className="titulo">{evento.nombre_evento}</p>
                   <p className="hora">
                     <i className="fa fa-clock-o" aria-hidden="true"></i>
-                    {evento.fecha_evento} {evento.hora_evento}
-                  </p>
-                  <p>
-                    <i className="fa fa-tag" aria-hidden="true"></i>
-                    {evento.cat_evento}
+                    {evento.hora_evento}
                   </p>
                   <p>
                     <i className="fa fa-user" aria-hidden="true"></i>
                     {evento.nombre_invitado} {evento.apellido_invitado}
                   </p>
-                </div>
+                </article>
               ))}
             </div>
-          </div>
+          </section>
         ))}
       </div>
     </section>

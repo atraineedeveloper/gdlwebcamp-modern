@@ -13,24 +13,30 @@ export function InvitadosPage() {
   });
 
   return (
-    <section className="seccion contenedor">
-      <div className="calendario">
-        <section className="invitados contenedor seccion">
-          <h2>Nuestros invitados</h2>
-          <ul className="lista-invitados lista-invitados-react clearfix">
-            {data.map((inv) => (
-              <li key={inv.invitado_id}>
-                <div className="invitado">
-                  <a className="invitado-info" href="#">
+    <section className="seccion contenedor invitados-modern-page">
+      <section className="invitados seccion invitados-page">
+        <h2>Nuestros invitados</h2>
+        <p className="invitados-page-intro">
+          Referentes en diseno, frontend, producto y estrategia digital que comparten experiencia practica y vision de futuro.
+        </p>
+        <ul className="lista-invitados lista-invitados-react clearfix invitados-modern-grid">
+          {data.map((inv) => (
+            <li key={inv.invitado_id}>
+              <article className="invitado invitado-modern-card">
+                <a className="invitado-info invitado-modern-link" href="#">
+                  <div className="invitado-media">
                     <img src={getInvitadoImage(inv.url_imagen)} alt={inv.nombre_invitado} />
-                    <p>{inv.nombre_invitado} {inv.apellido_invitado}</p>
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+                  </div>
+                  <div className="invitado-copy">
+                    <p className="invitado-nombre">{inv.nombre_invitado} {inv.apellido_invitado}</p>
+                    <p className="invitado-descripcion">{inv.descripcion}</p>
+                  </div>
+                </a>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
     </section>
   );
 }
